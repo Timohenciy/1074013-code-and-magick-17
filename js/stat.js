@@ -9,7 +9,8 @@ var TEXT_HEIGHT = 15;
 var COLUMN_HEIGHT = 150;
 var COLUMN_WIDTH = 40;
 var COLUMN_DISTANCE = 50;
-var COLUMN_TOP_GAP = CLOUD_Y + GAP + (GAP + TEXT_HEIGHT) * 3;
+var STROKE_QUANTITY = 3;
+var COLUMN_TOP_GAP = CLOUD_Y + GAP + (GAP + TEXT_HEIGHT) * STROKE_QUANTITY;
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;

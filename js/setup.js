@@ -50,7 +50,12 @@ var similarList = document.querySelector('.setup-similar-list');
 var wizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
 var getRandomValue = function (arr) {
-  var index = Math.round(Math.random() * arr.length);
+  var index = Math.random() * arr.length;
+  if (index > 7) {
+    index = Math.floor(index);
+  } else {
+    index = Math.round(index);
+  }
   return arr[index];
 };
 

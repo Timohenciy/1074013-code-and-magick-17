@@ -1,7 +1,5 @@
 'use strict';
 
-var NUMBER_OF_WIZARDS = 4;
-
 var firstNames = [
   'Иван',
   'Хуан Себастьян',
@@ -51,26 +49,39 @@ var similarList = document.querySelector('.setup-similar-list');
 
 var wizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
-var getRandomValue = function (inputValue) {
-  var outputValue = Math.round(Math.random() * inputValue);
-  return outputValue;
+var getRandomValue = function (arr) {
+  var index = Math.round(Math.random() * arr.length);
+  return arr[index];
 };
 
-var setPlayerName = function (firstName, secondName) {
-  var randomFirstName = Math.round(getRandomValue(firstName.length));
-  var randomSecondName = Math.round(getRandomValue(secondName.length));
-
-  var randomName = firstName[randomFirstName] + ' ' + secondName[randomSecondName];
-
-  return randomName;
+var getWizards = function (firstName, secondName, coatColor, eyesColor) {
+  var NUMBER_OF_WIZARDS = 4;
+  var wizards = [];
+  for (var i = 0; i < NUMBER_OF_WIZARDS; i++) {
+    var wizard = {};
+    wizard.name = getRandomValue(firstName) + ' ' + getRandomValue(secondName);
+    wizard.coatColor = getRandomValue(coatColor);
+    wizard.eyesColor = getRandomValue(eyesColor);
+    wizards.push(wizard);
+  }
+  return wizards;
 };
 
-for (var i = 0; i < NUMBER_OF_WIZARDS; i++) {
+var createNewWizard = function (wizards) {
   var newWizardElement = wizardTemplate.cloneNode(true);
+  newWizardElement.querySelector('.setup-similar-label').textContent = wizards.name;
+  newWizardElement.querySelector('.wizard-coat').style.fill = wizards.coatColor;
+  newWizardElement.querySelector('.wizard-eyes').style.fill = wizards.eyesColor;
+  return newWizardElement;
+};
 
-  newWizardElement.querySelector('.setup-similar-label').textContent = setPlayerName(firstNames, secondNames);
-  newWizardElement.querySelector('.wizard-coat').style.fill = coatColors[getRandomValue(coatColors.length)];
-  newWizardElement.querySelector('.wizard-eyes').style.fill = eyesColors[getRandomValue(eyesColors.length)];
+var setAllWizards = function (wizards) {
+  var allWizards = document.createDocumentFragment();
+  for (var i = 0; i < wizards.length; i++) {
+    var newWizard = createNewWizard(wizards[i]);
+    allWizards.appendChild(newWizard);
+  }
+  similarList.appendChild(allWizards);
+};
 
-  similarList.appendChild(newWizardElement);
-}
+setAllWizards(getWizards(firstNames, secondNames, coatColors, eyesColors));

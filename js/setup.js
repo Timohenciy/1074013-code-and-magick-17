@@ -57,6 +57,7 @@ var getRandomValue = function (arr) {
 var getWizards = function (firstName, secondName, coatColor, eyesColor) {
   var NUMBER_OF_WIZARDS = 4;
   var wizards = [];
+
   for (var i = 0; i < NUMBER_OF_WIZARDS; i++) {
     var wizard = {};
     wizard.name = getRandomValue(firstName) + ' ' + getRandomValue(secondName);
@@ -64,6 +65,7 @@ var getWizards = function (firstName, secondName, coatColor, eyesColor) {
     wizard.eyesColor = getRandomValue(eyesColor);
     wizards.push(wizard);
   }
+
   return wizards;
 };
 
@@ -77,11 +79,15 @@ var createNewWizard = function (wizards) {
 
 var setAllWizards = function (wizards) {
   var allWizards = document.createDocumentFragment();
+
   for (var i = 0; i < wizards.length; i++) {
     var newWizard = createNewWizard(wizards[i]);
     allWizards.appendChild(newWizard);
   }
+
   similarList.appendChild(allWizards);
 };
 
 setAllWizards(getWizards(firstNames, secondNames, coatColors, eyesColors));
+
+// test

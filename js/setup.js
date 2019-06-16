@@ -123,7 +123,7 @@ var closeSetupWindow = function () {
   document.removeEventListener('keydown', onEscCloseWindow);
 };
 
-var onEscCloseWindow = function (evt) {                                 // Функция закрытия окна через ESC
+var onEscCloseWindow = function (evt) { // Функция закрытия окна через ESC
   if (evt.keyCode === ESC_KEY_CODE) {
     setupBlock.classList.add('hidden');
   }

@@ -52,17 +52,20 @@ var ENTER_KEY_CODE = 13;
 
 var setupBlock = document.querySelector('.setup'); // Окно настроек персонажа
 
-var openSetupBlock = document.querySelector('.setup-open'); // Кнопка для открытия настроек персонажа
+var openSetupButton = document.querySelector('.setup-open'); // Кнопка для открытия настроек персонажа
 
-var closeSetupBlock = setupBlock.querySelector('.setup-close'); // Кнопка закрытия окна настроек персонажа
-
-var userNameForm = setupBlock.querySelector('.setup-user-name'); // Поле ввода имени персонажа
+var closeSetupButton = setupBlock.querySelector('.setup-close'); // Кнопка закрытия окна настроек персонажа
 
 var wizardImage = setupBlock.querySelector('.setup-wizard');
+
 var wizardCoatColor = wizardImage.querySelector('.wizard-coat');
+var wizardCoatColorInput = setupBlock.querySelector('[name = "coat-color"]');
+
 var wizardEyesColor = wizardImage.querySelector('.wizard-eyes');
+var wizardEyesColorInput = setupBlock.querySelector('[name = "eyes-color"]');
 
 var wizardFireballColor = document.querySelector('.setup-fireball-wrap');
+var wizardFireballColorInput = wizardFireballColor.querySelector('[name = "fireball-color"]');
 
 var setupSimilar = document.querySelector('.setup-similar'); // Окно похожих персонажей
 setupSimilar.classList.remove('hidden');
@@ -70,46 +73,6 @@ setupSimilar.classList.remove('hidden');
 var similarList = document.querySelector('.setup-similar-list'); // Список похожих персонажей
 
 var wizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item'); // Шаблон персонажа
-
-wizardCoatColor.addEventListener('click', function () {
-  wizardCoatColor.style.fill = getRandomValue(coatColors);
-});
-
-wizardEyesColor.addEventListener('click', function () {
-  wizardEyesColor.style.fill = getRandomValue(eyesColors);
-});
-
-wizardFireballColor.addEventListener('click', function () {
-  wizardFireballColor.style.background = getRandomValue(fireballColors);
-});
-
-openSetupBlock.addEventListener('click', function () {
-  openSetupWindow();
-});
-
-openSetupBlock.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEY_CODE) {
-    openSetupWindow();
-  }
-});
-
-closeSetupBlock.addEventListener('click', function () {
-  closeSetupWindow();
-});
-
-closeSetupBlock.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEY_CODE) {
-    closeSetupWindow();
-  }
-});
-
-userNameForm.addEventListener('focus', function () {
-  document.removeEventListener('keydown', onEscCloseWindow);
-});
-
-userNameForm.addEventListener('blur', function () {
-  document.addEventListener('keydown', onEscCloseWindow);
-});
 
 var openSetupWindow = function () {
   setupBlock.classList.remove('hidden');
@@ -124,7 +87,7 @@ var closeSetupWindow = function () {
 };
 
 var onEscCloseWindow = function (evt) { // Функция закрытия окна через ESC
-  if (evt.keyCode === ESC_KEY_CODE) {
+  if (evt.keyCode === ESC_KEY_CODE && evt.target.tagName !== 'INPUT') {
     setupBlock.classList.add('hidden');
   }
 };
@@ -169,6 +132,41 @@ var setAllWizards = function (wizards) { // Добавление созданн�
 
   similarList.appendChild(allWizards);
 };
+
+openSetupButton.addEventListener('click', function () {
+  openSetupWindow();
+});
+
+openSetupButton.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEY_CODE) {
+    openSetupWindow();
+  }
+});
+
+closeSetupButton.addEventListener('click', function () {
+  closeSetupWindow();
+});
+
+closeSetupButton.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEY_CODE) {
+    closeSetupWindow();
+  }
+});
+
+wizardCoatColor.addEventListener('click', function () {
+  wizardCoatColor.style.fill = getRandomValue(coatColors);
+  wizardCoatColorInput.value = wizardCoatColor.style.fill;
+});
+
+wizardEyesColor.addEventListener('click', function () {
+  wizardEyesColor.style.fill = getRandomValue(eyesColors);
+  wizardEyesColorInput.value = wizardEyesColor.style.fill;
+});
+
+wizardFireballColor.addEventListener('click', function () {
+  wizardFireballColor.style.background = getRandomValue(fireballColors);
+  wizardFireballColorInput.value = wizardFireballColor.style.background;
+});
 
 setAllWizards(getWizards(firstNames, secondNames, coatColors, eyesColors));
 

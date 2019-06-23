@@ -178,54 +178,72 @@ wizardFireballColor.addEventListener('click', function () {
 setAllWizards(getWizards(firstNames, secondNames, coatColors, eyesColors));
 
 // начало
-var dragButton = setupBlock.querySelector('.upload');
+/* var dragButton = setupBlock.querySelector('.upload');
 
-var getStartPosition = function (evtDown) {
+var onMouseDown = function (evtDown) {
   evtDown.preventDefault();
   // получаю x и y после события mousedown
   var startCoordinates = {
     x: evtDown.clientX,
     y: evtDown.clientY
   };
-  return startCoordinates;
-};
+
+  var onMouseMove = function (evtMove) {
+    event.preventDefault();
+    // как я понимаю это должна быть разница между начальной позицией курсора и позицией после перемещения
+    var shift = {
+      x: startCoordinates.x - evtMove.clientX,
+      y: startCoordinates.y - evtMove.clientY
+    };
+    // а здесь я хочу к первоначальной позиции прибавить разницу
+    startCoordinates = {
+      x: evtMove.clientX,
+      y: evtMove.clientY
+    };
+
+    setupBlock.style.left = (setupBlock.offsetLeft - shift.x) + 'px';
+    setupBlock.style.top = (setupBlock.offsetTop - shift.y) + 'px';
+  };
+
+  var onMouseUp = function (evtUp) {
+    evtUp.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+}; */
 
 // передаю в функцию объект с первоначальными координатами и координаты x, y посе перемещения курсора
-var onMouseMove = function (object, evtMoveX, evtMoveY) {
+/* var onMouseMove = function (evtMove) {
+  event.preventDefault();
   // как я понимаю это должна быть разница между начальной позицией курсора и позицией после перемещения
   var shift = {
-    x: object.x - evtMoveX,
-    y: object.y - evtMoveY
+    x: evtMove.x - event.clientX,
+    y: evtMove.y - event.clientY
   };
   // а здесь я хочу к первоначальной позиции прибавить разницу
   var newCoords = {
-    x: object.x - shift.x,
-    y: object.y - shift.y
+    x: evtMove.x - shift.x,
+    y: evtMove.y - shift.y
   };
-  return newCoords;
-};
+
+  setupBlock.style.left = newCoords.x + 'px';
+  setupBlock.style.top = newCoords.y + 'px';
+}; */
 // передаю в функцию объект с новыми координатами x и y
-var newSetupPosition = function (object) {
+/* var newSetupPosition = function (object) {
   setupBlock.style.left = object.x + 'px';
   setupBlock.style.top = object.y + 'px';
-};
+}; */
 
-var onMouseUp = function (evtUp) {
+/* var onMouseUp = function (evtUp) {
   evtUp.preventDefault();
 
-  document.removeEventListener('mousemove', onMouseMove); // в таком виде обработчики не симаются
+  document.removeEventListener('mousemove', onMouseMove);
   document.removeEventListener('mouseup', onMouseUp);
 };
-
-dragButton.addEventListener('mousedown', function (evt) {
-  evt.preventDefault();
-
-  var startCoords = getStartPosition(evt);
-
-  document.addEventListener('mousemove', function (eventMove) {
-    eventMove.preventDefault();
-
-    newSetupPosition(onMouseMove(startCoords, eventMove.clientX, eventMove.clientY));
-  });
-  document.addEventListener('mouseup', onMouseUp);
-});
+ */
+/* dragButton.addEventListener('mousedown', onMouseDown); */

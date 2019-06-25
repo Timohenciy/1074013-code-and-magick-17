@@ -4,80 +4,49 @@
   var setupWindow = document.querySelector('.setup');
 
   var artifactShop = setupWindow.querySelector('.setup-artifacts-shop');
-  var artifacts = artifactShop.querySelector('[alt = "Star"]');
+  var artifact = artifactShop.querySelector('[alt = "Star"]');
 
   var artifactsInventory = document.querySelector('.setup-artifacts');
-  var artifactCell = artifactsInventory.querySelector('.setup-artifacts-cell');
 
-  var onMouseDown = function (evtDown) {
-    evtDown.preventDefault();
-    artifacts.style.position = 'absolute';
+  var onDragStart = function (evtStart) {
+    evtStart.dataTransfer.effectAllowed = 'move';
+    evtStart.dataTransfer.setData('Text', evtStart.target.getAttribute('alt'));
 
-    var startingCoords = {
-      x: evtDown.clientX,
-      y: evtDown.clientY
+    var onDragEnter = function (evtEnter) {
+      evtEnter.preventDefault();
+
+      evtEnter.target.style.background = 'blue';
+
+      artifactsInventory.addEventListener('dragleave', onDragLeave);
     };
 
-    var onMouseOverArtifactCell = function () {
+    var onDragOver = function (evtOver) {
+      evtOver.preventDefault();
 
-      var onCellMouseUp = function (eventUp) {
-        eventUp.preventDefault();
-
-        artifactCell.appendChild(artifacts);
-        artifactCell.style.background = 'rgba(0, 0, 0, .1)';
-
-        artifacts.style.left = null;
-        artifacts.style.top = null;
-
-        artifactCell.removeEventListener('mouseover', onMouseOverArtifactCell);
-        document.removeEventListener('mouseup', onCellMouseUp);
-        document.removeEventListener('mousemove', onMouseMove);
-      };
-
-      artifactCell.style.background = 'rgba(255, 255, 0, 0.5)';
-
-      document.removeEventListener('mouseup', onDialogMouseUp);
-      document.addEventListener('mouseup', onCellMouseUp);
+      artifactsInventory.style.boxShadow = '0px 0px 20px 5px rgba(255,255,0,0.3)';
     };
 
-    var onMouseMove = function (evtMove) {
-      evtMove.preventDefault();
+    var onDragLeave = function (evtLeave) {
+      evtLeave.preventDefault();
 
-      var shift = {
-        x: startingCoords.x - evtMove.clientX,
-        y: startingCoords.y - evtMove.clientY
-      };
-
-      startingCoords = {
-        x: evtMove.clientX,
-        y: evtMove.clientY
-      };
-
-      artifacts.style.left = (artifacts.offsetLeft - shift.x) + 'px';
-      artifacts.style.top = (artifacts.offsetTop - shift.y) + 'px';
-
-      artifactCell.addEventListener('mouseover', onMouseOverArtifactCell);
+      artifactsInventory.style.boxShadow = null;
+      evtLeave.target.style.background = null;
     };
 
-    var onDialogMouseUp = function (evtUp) {
-      evtUp.preventDefault();
+    var onDrop = function (evtDrop) {
+      evtDrop.preventDefault();
 
-      artifacts.style.left = null;
-      artifacts.style.top = null;
+      evtDrop.target.style.background = null;
 
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onDialogMouseUp);
+      var data = evtDrop.dataTransfer.getData('Text');
+      evtDrop.dataTransfer.dropEffect = 'move';
+      evtDrop.target.appendChild(document.querySelector('[alt = "' + data + '"]'));
     };
 
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onDialogMouseUp);
+    artifactsInventory.addEventListener('dragenter', onDragEnter);
+    artifactsInventory.addEventListener('dragover', onDragOver);
+    artifactsInventory.addEventListener('drop', onDrop);
   };
-  artifacts.addEventListener('mousedown', onMouseDown);
 
+  artifact.addEventListener('dragstart', onDragStart);
 })();
-
-/* var onFocusAppendArtifact = function () {
-  if (artifactCell == document.activeElement) {
-    artifactCell.appendChild
-  }
-}; */

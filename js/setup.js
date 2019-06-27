@@ -83,6 +83,8 @@ var openSetupWindow = function () {
 var closeSetupWindow = function () {
   setupBlock.classList.add('hidden');
 
+  resetWindowPosition();
+
   document.removeEventListener('keydown', onEscCloseWindow);
 };
 
@@ -90,6 +92,11 @@ var onEscCloseWindow = function (evt) { // Функция закрытия ок�
   if (evt.keyCode === ESC_KEY_CODE && evt.target.tagName !== 'INPUT') {
     setupBlock.classList.add('hidden');
   }
+};
+
+var resetWindowPosition = function () {
+  setupBlock.style.left = null;
+  setupBlock.style.top = null;
 };
 
 var getRandomValue = function (arr) {
@@ -169,5 +176,3 @@ wizardFireballColor.addEventListener('click', function () {
 });
 
 setAllWizards(getWizards(firstNames, secondNames, coatColors, eyesColors));
-
-

@@ -14,16 +14,22 @@ var resetWindowPosition = function () {
   setupBlock.style.top = null;
 };
 
-var onActionOpenSetup = function () {
+var openSetupAction = function () {
   setupBlock.classList.remove('hidden');
+
+  closeSetupButton.addEventListener('keydown', onEnterDoAction);
+  closeSetupButton.addEventListener('click', closeSetupAction);
 
   document.addEventListener('keydown', onEscCloseWindow);
 };
 
-var onActionCloseSetup = function () {
+var closeSetupAction = function () {
   setupBlock.classList.add('hidden');
 
   resetWindowPosition();
+
+  closeSetupButton.removeEventListener('keydown', onEnterDoAction);
+  closeSetupButton.removeEventListener('click', closeSetupAction);
 
   document.removeEventListener('keydown', onEscCloseWindow);
 };
@@ -34,18 +40,13 @@ var onEscCloseWindow = function (evt) {
   }
 };
 
-openSetupButton.addEventListener('click', onActionOpenSetup);
-
-openSetupButton.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEY_CODE) {
-    onActionOpenSetup();
+var onEnterDoAction = function (evt) {
+  if (evt.target.className === 'setup-open-icon' && evt.keyCode === ENTER_KEY_CODE) {
+    openSetupAction();
+  } else if (evt.target.className === 'setup-close' && evt.keyCode === ENTER_KEY_CODE) {
+    closeSetupAction();
   }
-});
+};
 
-closeSetupButton.addEventListener('click', onActionCloseSetup);
-
-closeSetupButton.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEY_CODE) {
-    onActionCloseSetup();
-  }
-});
+openSetupButton.addEventListener('keydown', onEnterDoAction);
+openSetupButton.addEventListener('click', openSetupAction);

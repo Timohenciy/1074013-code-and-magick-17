@@ -1,52 +1,53 @@
 'use strict';
+(function () {
+  var ESC_KEY_CODE = 27;
+  var ENTER_KEY_CODE = 13;
 
-var ESC_KEY_CODE = 27;
-var ENTER_KEY_CODE = 13;
+  var setupBlock = document.querySelector('.setup'); // Окно настроек персонажа
 
-var setupBlock = document.querySelector('.setup'); // Окно настроек персонажа
+  var openSetupButton = document.querySelector('.setup-open'); // Кнопка для открытия настроек персонажа
 
-var openSetupButton = document.querySelector('.setup-open'); // Кнопка для открытия настроек персонажа
+  var closeSetupButton = setupBlock.querySelector('.setup-close'); // Кнопка закрытия окна настроек персонажа
 
-var closeSetupButton = setupBlock.querySelector('.setup-close'); // Кнопка закрытия окна настроек персонажа
+  var resetWindowPosition = function () {
+    setupBlock.style.left = null;
+    setupBlock.style.top = null;
+  };
 
-var resetWindowPosition = function () {
-  setupBlock.style.left = null;
-  setupBlock.style.top = null;
-};
+  var openSetupAction = function () {
+    setupBlock.classList.remove('hidden');
 
-var openSetupAction = function () {
-  setupBlock.classList.remove('hidden');
+    closeSetupButton.addEventListener('keydown', onEnterDoAction);
+    closeSetupButton.addEventListener('click', closeSetupAction);
 
-  closeSetupButton.addEventListener('keydown', onEnterDoAction);
-  closeSetupButton.addEventListener('click', closeSetupAction);
+    document.addEventListener('keydown', onEscCloseWindow);
+  };
 
-  document.addEventListener('keydown', onEscCloseWindow);
-};
-
-var closeSetupAction = function () {
-  setupBlock.classList.add('hidden');
-
-  resetWindowPosition();
-
-  closeSetupButton.removeEventListener('keydown', onEnterDoAction);
-  closeSetupButton.removeEventListener('click', closeSetupAction);
-
-  document.removeEventListener('keydown', onEscCloseWindow);
-};
-
-var onEscCloseWindow = function (evt) {
-  if (evt.keyCode === ESC_KEY_CODE && evt.target.tagName !== 'INPUT') {
+  var closeSetupAction = function () {
     setupBlock.classList.add('hidden');
-  }
-};
 
-var onEnterDoAction = function (evt) {
-  if (evt.target.className === 'setup-open-icon' && evt.keyCode === ENTER_KEY_CODE) {
-    openSetupAction();
-  } else if (evt.target.className === 'setup-close' && evt.keyCode === ENTER_KEY_CODE) {
-    closeSetupAction();
-  }
-};
+    resetWindowPosition();
 
-openSetupButton.addEventListener('keydown', onEnterDoAction);
-openSetupButton.addEventListener('click', openSetupAction);
+    closeSetupButton.removeEventListener('keydown', onEnterDoAction);
+    closeSetupButton.removeEventListener('click', closeSetupAction);
+
+    document.removeEventListener('keydown', onEscCloseWindow);
+  };
+
+  var onEscCloseWindow = function (evt) {
+    if (evt.keyCode === ESC_KEY_CODE && evt.target.tagName !== 'INPUT') {
+      setupBlock.classList.add('hidden');
+    }
+  };
+
+  var onEnterDoAction = function (evt) {
+    if (evt.target.className === 'setup-open-icon' && evt.keyCode === ENTER_KEY_CODE) {
+      openSetupAction();
+    } else if (evt.target.className === 'setup-close' && evt.keyCode === ENTER_KEY_CODE) {
+      closeSetupAction();
+    }
+  };
+
+  openSetupButton.addEventListener('keydown', onEnterDoAction);
+  openSetupButton.addEventListener('click', openSetupAction);
+})();

@@ -50,6 +50,46 @@ form
     display: none;
 }
 
+.error-window {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 500px;
+  height: 300px;
+  background-color: #414342;
+  border: 2px solid #c3c3c3;
+}
+
+.error-window-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 98%;
+  height: 27px;
+  background-color: #e1e1e1;
+  border-bottom: 2px solid #c3c3c3;
+  padding: 5px 5px;
+}
+
+.error-window-body {
+  position: absolute;
+  top: 37px;
+  left: 0;
+  height: 243px;
+  width: 96%;
+  color: #da641a;
+  padding: 10px 10px;
+}
+
+.error-window-close-button {
+  position: absolute;
+  top: -14px;
+  left: 93%;
+  font-size: 50px;
+  color: black;
+  cursor: pointer;
+}
+
 .popup
 {
     position: absolute;

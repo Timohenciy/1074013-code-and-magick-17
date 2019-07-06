@@ -18,18 +18,18 @@
     setupBlock.classList.remove('hidden');
 
     closeSetupButton.addEventListener('keydown', onEnterDoAction);
-    closeSetupButton.addEventListener('click', closeSetupAction);
+    closeSetupButton.addEventListener('click', window.closeSetupAction);
 
     document.addEventListener('keydown', onEscCloseWindow);
   };
 
-  var closeSetupAction = function () {
+  window.closeSetupAction = function () {
     setupBlock.classList.add('hidden');
 
     resetWindowPosition();
 
     closeSetupButton.removeEventListener('keydown', onEnterDoAction);
-    closeSetupButton.removeEventListener('click', closeSetupAction);
+    closeSetupButton.removeEventListener('click', window.closeSetupAction);
 
     document.removeEventListener('keydown', onEscCloseWindow);
   };
@@ -44,7 +44,7 @@
     if (evt.target.className === 'setup-open-icon' && evt.keyCode === ENTER_KEY_CODE) {
       openSetupAction();
     } else if (evt.target.className === 'setup-close' && evt.keyCode === ENTER_KEY_CODE) {
-      closeSetupAction();
+      window.closeSetupAction();
     }
   };
 

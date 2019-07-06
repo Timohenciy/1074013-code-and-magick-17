@@ -1,29 +1,6 @@
 'use strict';
 
 (function () {
-
-  /* var firstNames = [
-    'Иван',
-    'Хуан Себастьян',
-    'Мария',
-    'Кристоф',
-    'Виктор',
-    'Юлия',
-    'Люпита',
-    'Вашингтон'
-  ];
-
-  var secondNames = [
-    'Да Марья',
-    'Верон',
-    'Мирабелла',
-    'Вальц',
-    'Онопко',
-    'Топольницкая',
-    'Нионго',
-    'Ирвинг'
-  ]; */
-
   var setupSimilar = document.querySelector('.setup-similar'); // Окно похожих персонажей
   setupSimilar.classList.remove('hidden');
 
@@ -53,10 +30,6 @@
     similarList.appendChild(allWizards);
   };
 
-  var test = function () {
-    console.log('Error!');
-  };
-
-  window.backend.load(setAllWizards, test);
+  window.backend.load(setAllWizards, window.showErrorWindow);
 
 })();

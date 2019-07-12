@@ -15,13 +15,17 @@
   var wizardFireballColorInput = wizardFireballColor.querySelector('[name = "fireball-color"]');
 
   wizardCoatColor.addEventListener('click', function () {
-    wizardCoatColor.style.fill = window.util.getRandomValue(window.util.coatColors);
+    var newCoatColor = window.util.getRandomValue(window.util.coatColors);
+    wizardCoatColor.style.fill = newCoatColor;
     wizardCoatColorInput.value = wizardCoatColor.style.fill;
+    window.onCoatColorChange(newCoatColor);
   });
 
   wizardEyesColor.addEventListener('click', function () {
-    wizardEyesColor.style.fill = window.util.getRandomValue(window.util.eyesColors);
+    var newEyesColor = window.util.getRandomValue(window.util.eyesColors);
+    wizardEyesColor.style.fill = newEyesColor;
     wizardEyesColorInput.value = wizardEyesColor.style.fill;
+    window.onEyesColorChange(newEyesColor);
   });
 
   wizardFireballColor.addEventListener('click', function () {

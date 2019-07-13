@@ -1,11 +1,8 @@
 'use strict';
 
 (function () {
-  var setupWindow = document.querySelector('.setup');
 
-  var artifactShop = setupWindow.querySelector('.setup-artifacts-shop');
-  var artifact = artifactShop.querySelector('[alt = "Star"]');
-
+  var artifactStar = document.querySelector('[alt = "Star"]');
   var artifactsInventory = document.querySelector('.setup-artifacts');
 
   var onDragStart = function (evtStart) {
@@ -48,5 +45,5 @@
     artifactsInventory.addEventListener('drop', onDrop);
   };
 
-  artifact.addEventListener('dragstart', onDragStart);
+  artifactStar.addEventListener('dragstart', onDragStart);
 })();

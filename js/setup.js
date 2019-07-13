@@ -43,7 +43,8 @@
   var onEnterDoAction = function (evt) {
     if (evt.target.className === 'setup-open-icon' && evt.keyCode === ENTER_KEY_CODE) {
       openSetupAction();
-    } else if (evt.target.className === 'setup-close' && evt.keyCode === ENTER_KEY_CODE) {
+    }
+    if (evt.target.className === 'setup-close' && evt.keyCode === ENTER_KEY_CODE) {
       window.closeSetupAction();
     }
   };

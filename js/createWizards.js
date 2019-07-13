@@ -2,7 +2,6 @@
 
 (function () {
   var setupSimilar = document.querySelector('.setup-similar'); // Окно похожих персонажей
-  setupSimilar.classList.remove('hidden');
 
   var similarList = document.querySelector('.setup-similar-list'); // Список похожих персонажей
 
@@ -88,6 +87,7 @@
       allWizards.appendChild(newWizard);
     });
 
+    setupSimilar.classList.remove('hidden');
     similarList.appendChild(allWizards);
   };
 

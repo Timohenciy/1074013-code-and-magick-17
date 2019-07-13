@@ -22,13 +22,19 @@
         if (xhr.status === Code.STATUS_SUCCESS) {
           onLoad(xhr.response);
         } else {
-          onError('Статус ответа: ' + xhr.status + ' - ' + xhr.statusText);
+          onError(xhr.status);
         }
       });
 
       xhr.addEventListener('error', function () {
         onError('Произошла ошибка соединения');
       });
+
+      xhr.addEventListener('timeout', function () {
+        onError('Превышено время ожидания ответа от сервера');
+      });
+
+      xhr.timeout = 10000;
 
       xhr.open('GET', GET_ADDRESS);
       xhr.send();

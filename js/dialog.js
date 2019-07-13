@@ -36,12 +36,12 @@
       evtUp.preventDefault();
 
       if (isDragged) {
-        var onClickRemoveHandler = function (evt) {
+        var onClickPreventDefault = function (evt) {
           evt.preventDefault();
-          dragButton.removeEventListener('click', onClickRemoveHandler);
+          dragButton.removeEventListener('click', onClickPreventDefault);
         };
 
-        dragButton.addEventListener('click', onClickRemoveHandler);
+        dragButton.addEventListener('click', onClickPreventDefault);
       }
 
       document.removeEventListener('mousemove', onMouseMove);

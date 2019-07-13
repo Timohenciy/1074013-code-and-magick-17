@@ -24,7 +24,7 @@
       'yellow',
       'green'
     ]
-  }
+  };
 
   var setupWindow = document.querySelector('.setup');
 
